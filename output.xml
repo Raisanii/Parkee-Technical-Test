@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.8.0 on win32)" generated="2024-02-09T20:47:00.883068" rpa="false" schemaversion="5">
+<suite id="s1" name="Main" source="D:\ParkeeTestcase\main.robot">
+<test id="s1-t1" name="[POSITIF CASE] Add User" line="12">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:01.027745" level="INFO">Creating Session using : alias=reqres, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>reqres</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-02-09T20:47:01.027745" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:01.027745" level="INFO">${headers} = {'Content-Type': 'multipart/form-data'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=multipart/form-data</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:01.027745" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-02-09T20:47:01.027745" level="INFO">${data} = {'email': 'raisani@example.com', 'firs_name': 'Rai', 'last_name': 'Sani'}</msg>
+<var>${data}</var>
+<arg>json.loads('''${REQUEST_BODY}''')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-02-09T20:47:01.027745" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:01.027745" level="INFO">${file_data} = {'file': '@imgavatar.png'}</msg>
+<var>${file_data}</var>
+<arg>file=@${AVATAR_FILE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:01.027745" elapsed="0.000000"/>
+</kw>
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${data}</arg>
+<arg>avatar</arg>
+<arg>${file_data}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2024-02-09T20:47:01.027745" elapsed="0.015630"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:02.274627" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'multipart/form-data', 'Content-Length': '68'} 
+ body=email=raisani%40example.com&amp;firs_name=Rai&amp;last_name=Sani&amp;avatar=file 
+ </msg>
+<msg time="2024-02-09T20:47:02.274627" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Fri, 09 Feb 2024 13:47:02 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '51', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1707486422&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=7ubV7fJxm7zG3hQ7rmxqnVheaxMMoYjFbVk2knHEKZ8%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1707486422&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=7ubV7fJxm7zG3hQ7rmxqnVheaxMMoYjFbVk2knHEKZ8%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"33-WT27LqJj1LXvLlsMwQt/NU12SkM"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '852c8fd9a8424bd4-SIN'} 
+ body={"id":"693","createdAt":"2024-02-09T13:47:02.311Z"} 
+ </msg>
+<msg time="2024-02-09T20:47:02.274627" level="INFO">D:\ParkeeTestcase\venv\lib\site-packages\urllib3\connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-02-09T20:47:02.274627" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>reqres</arg>
+<arg>/api/users</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-02-09T20:47:01.043375" elapsed="1.231252"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-02-09T20:47:02.274627" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.274627" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Test Message" owner="BuiltIn">
+<msg time="2024-02-09T20:47:02.290329" level="INFO">Set test message to:
+Status code is 201</msg>
+<arg>Status code is 201</arg>
+<doc>Sets message for the current test case.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.290329" elapsed="0.000000"/>
+</kw>
+<arg>'${response.status_code}' != '201'</arg>
+<arg>Fail</arg>
+<arg>Expected status code 400 but got ${response.status_code}</arg>
+<arg>ELSE</arg>
+<arg>Set Test Message</arg>
+<arg>Status code is 201</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.274627" elapsed="0.015702"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2024-02-09T20:47:02.290329" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.290329" elapsed="0.000000"/>
+</kw>
+<doc>Verify status code is 201 for positive case add user</doc>
+<status status="PASS" start="2024-02-09T20:47:01.027745" elapsed="1.262584">Status code is 201</status>
+</test>
+<test id="s1-t2" name="[NEGATIF CASE] Missing Request Body Fields" line="27">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:02.290329" level="INFO">Creating Session using : alias=reqres, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>reqres</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-02-09T20:47:02.290329" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:02.290329" level="INFO">${headers} = {'Content-Type': 'multipart/form-data'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=multipart/form-data</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.290329" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:02.290329" level="INFO">${data} = {}</msg>
+<var>${data}</var>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.290329" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:03.465291" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'multipart/form-data', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2024-02-09T20:47:03.465291" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Fri, 09 Feb 2024 13:47:03 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '51', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1707486423&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=x3sQb0ZT0WF2xbQx08JfJZ7Ry5iKF4DkYo9SM5N4bPg%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1707486423&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=x3sQb0ZT0WF2xbQx08JfJZ7Ry5iKF4DkYo9SM5N4bPg%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"33-i+iaL67WNtOTe9lkZx8ZzgDNcTk"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '852c8fe1eb7ba081-SIN'} 
+ body={"id":"561","createdAt":"2024-02-09T13:47:03.616Z"} 
+ </msg>
+<msg time="2024-02-09T20:47:03.465291" level="INFO">D:\ParkeeTestcase\venv\lib\site-packages\urllib3\connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-02-09T20:47:03.465291" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>reqres</arg>
+<arg>/api/users</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-02-09T20:47:02.290329" elapsed="1.174962"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fail" owner="BuiltIn">
+<msg time="2024-02-09T20:47:03.482517" level="FAIL">Expected status code 400 but got 201</msg>
+<arg>Expected status code 400 but got ${response.status_code}</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="FAIL" start="2024-02-09T20:47:03.480512" elapsed="0.002005">Expected status code 400 but got 201</status>
+</kw>
+<arg>'${response.status_code}' == '201'</arg>
+<arg>Fail</arg>
+<arg>Expected status code 400 but got ${response.status_code}</arg>
+<arg>ELSE</arg>
+<arg>Set Test Message</arg>
+<arg>Status code is 400</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="FAIL" start="2024-02-09T20:47:03.477996" elapsed="0.004521">Expected status code 400 but got 201</status>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2024-02-09T20:47:03.484305" elapsed="0.000000"/>
+</kw>
+<doc>Verify status code is 400 for Missing Request Body Fields</doc>
+<status status="FAIL" start="2024-02-09T20:47:02.290329" elapsed="1.193976">Expected status code 400 but got 201</status>
+</test>
+<test id="s1-t3" name="[NEGATIF CASE] Missing Response" line="39">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:03.484305" level="INFO">Creating Session using : alias=reqres, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>reqres</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:03.484305" level="INFO">${headers} = {'Content-Type': 'multipart/form-data'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=multipart/form-data</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-02-09T20:47:03.484305" level="INFO">${data} = {'email': 'raisani@example.com', 'firs_name': 'Rai', 'last_name': 'Sani'}</msg>
+<var>${data}</var>
+<arg>json.loads('''${REQUEST_BODY}''')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:03.484305" level="INFO">${file_data} = {'file': '@imgavatar.png'}</msg>
+<var>${file_data}</var>
+<arg>file=@${AVATAR_FILE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="0.000000"/>
+</kw>
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${data}</arg>
+<arg>avatar</arg>
+<arg>${file_data}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:05.236669" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'multipart/form-data', 'Content-Length': '68'} 
+ body=email=raisani%40example.com&amp;firs_name=Rai&amp;last_name=Sani&amp;avatar=file 
+ </msg>
+<msg time="2024-02-09T20:47:05.236669" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Fri, 09 Feb 2024 13:47:05 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '51', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1707486425&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=OjlN8dae%2B%2FpyE4OW%2FMzCAkWAKGM%2BnopVmWZDKz7jBLA%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1707486425&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=OjlN8dae%2B%2FpyE4OW%2FMzCAkWAKGM%2BnopVmWZDKz7jBLA%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"33-VrBSN3veE40BpjMKcQ+L622p+v0"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '852c8fecbed449ba-SIN'} 
+ body={"id":"171","createdAt":"2024-02-09T13:47:05.350Z"} 
+ </msg>
+<msg time="2024-02-09T20:47:05.236669" level="INFO">D:\ParkeeTestcase\venv\lib\site-packages\urllib3\connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-02-09T20:47:05.252247" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>reqres</arg>
+<arg>/api/users</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="1.767942"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Test Message" owner="BuiltIn">
+<msg time="2024-02-09T20:47:05.256503" level="INFO">Set test message to:
+Response is not empty</msg>
+<arg>Response is not empty</arg>
+<arg>${response.text}</arg>
+<doc>Sets message for the current test case.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.252247" elapsed="0.004256"/>
+</kw>
+<arg>'${response.text}' == ''</arg>
+<arg>Fail</arg>
+<arg>Response is empty</arg>
+<arg>ELSE</arg>
+<arg>Set Test Message</arg>
+<arg>Response is not empty</arg>
+<arg>${response.text}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.252247" elapsed="0.004256"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2024-02-09T20:47:05.256503" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.256503" elapsed="0.000000"/>
+</kw>
+<doc>Verify response not missing</doc>
+<status status="PASS" start="2024-02-09T20:47:03.484305" elapsed="1.772198">Response is not empty</status>
+</test>
+<test id="s1-t4" name="[NEGATIF CASE] Response Equals Request" line="53">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:05.256503" level="INFO">Creating Session using : alias=reqres, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>reqres</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-02-09T20:47:05.256503" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:05.266514" level="INFO">${headers} = {'Content-Type': 'multipart/form-data'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=multipart/form-data</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.266514" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-02-09T20:47:05.269841" level="INFO">${data} = {'email': 'raisani@example.com', 'firs_name': 'Rai', 'last_name': 'Sani'}</msg>
+<var>${data}</var>
+<arg>json.loads('''${REQUEST_BODY}''')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.268832" elapsed="0.001109"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-02-09T20:47:05.271048" level="INFO">${file_data} = {'file': '@imgavatar.png'}</msg>
+<var>${file_data}</var>
+<arg>file=@${AVATAR_FILE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.269941" elapsed="0.001107"/>
+</kw>
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${data}</arg>
+<arg>avatar</arg>
+<arg>${file_data}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.272112" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-02-09T20:47:06.012384" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'multipart/form-data', 'Content-Length': '68'} 
+ body=email=raisani%40example.com&amp;firs_name=Rai&amp;last_name=Sani&amp;avatar=file 
+ </msg>
+<msg time="2024-02-09T20:47:06.012384" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Fri, 09 Feb 2024 13:47:06 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '51', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1707486426&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=ZnY61BF1gMWy46JKVpMM2zE2RwHkcKuW5LcTjnY1bzE%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1707486426&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=ZnY61BF1gMWy46JKVpMM2zE2RwHkcKuW5LcTjnY1bzE%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"33-N6u5RdSthrn6RjYJ6MhXIZOW6Ks"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Server': 'cloudflare', 'CF-RAY': '852c8ff17be6404e-SIN'} 
+ body={"id":"941","createdAt":"2024-02-09T13:47:06.098Z"} 
+ </msg>
+<msg time="2024-02-09T20:47:06.012384" level="INFO">D:\ParkeeTestcase\venv\lib\site-packages\urllib3\connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-02-09T20:47:06.012384" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>reqres</arg>
+<arg>/api/users</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-02-09T20:47:05.273119" elapsed="0.739265"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-02-09T20:47:06.028006" level="INFO">${response_data} = {'id': '941', 'createdAt': '2024-02-09T13:47:06.098Z'}</msg>
+<var>${response_data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-02-09T20:47:06.012384" elapsed="0.015622"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Fail" owner="BuiltIn">
+<msg time="2024-02-09T20:47:06.028006" level="FAIL">Response does not equal request</msg>
+<arg>Response does not equal request</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="FAIL" start="2024-02-09T20:47:06.028006" elapsed="0.000000">Response does not equal request</status>
+</kw>
+<arg>${response_data} != ${data}</arg>
+<arg>Fail</arg>
+<arg>Response does not equal request</arg>
+<arg>ELSE</arg>
+<arg>Set Test Message</arg>
+<arg>Response is equals request</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="FAIL" start="2024-02-09T20:47:06.028006" elapsed="0.000000">Response does not equal request</status>
+</kw>
+<doc>Verify response is equals request</doc>
+<status status="FAIL" start="2024-02-09T20:47:05.256503" elapsed="0.771503">Response does not equal request</status>
+</test>
+<status status="FAIL" start="2024-02-09T20:47:00.883746" elapsed="5.144260"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="2" skip="0" id="s1" name="Main">Main</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
